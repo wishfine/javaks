@@ -1,29 +1,11 @@
 //import { edge as _edge } from './Edge.js';
 //_edge();
+import Edge from './Edge.js'
 
-class Edge{
-    constructor(f,t,w){
-        if(f!=undefined) this.from = f;
-        if(t!=undefined) this.to = t;
-        if(w!=undefined) this.weight = w;
-    }
+//document.write("<script src='./js/Edge.js'></script>");
+//import './Edge.js'
 
-    printe()
-    {
-        console.log(`V${this.from}->V${this.to} weight:${this.weight}`);
-    }
-    get from()
-    {
-        return this.from;
-    }
-    set from(f)
-    {
-        this.from = f;
-    }
-}
-
-
-class listUnit {
+class listUnit { // 数据域
     constructor(v, w) {
         this.vertex = v;
         this.weight = w;
@@ -45,7 +27,9 @@ class Link { // 弧结点
 class LList{ // 链表头指针类
     constructor(el)
     {
+        // this.in = 0; // 入度
         this.head = new Link(el,null); // 附加头结点
+
     }
 }
 
@@ -56,11 +40,14 @@ class GraphList{
         if(nE!=undefined) this.numE = nE; else this.numE = 0;
         this.Mark = new Array(nV);
         this.gralist = new Array(nV);
+        this.Indegree = new Array(nV);
         for(let i = 0;i<=nV;i++)
         {
             this.gralist[i] = new LList(new listUnit(i));
+            this.Indegree[i] = 0;
+            this.Mark[i] = 0;
         }
-        this.Indegree = new Array(nV);
+
     }
     printGl()
     {
@@ -69,6 +56,7 @@ class GraphList{
         {
             result +=`${i}`;
             let t = this.gralist[i].head;
+            console.log(`${i}入度:${this.Indegree[i]}`);
             //console.log(t);
             while(t.next!=null)
             {
@@ -84,14 +72,15 @@ class GraphList{
 
     isEdge(e)
     {
-        if (e.weight > 0 && e.weight < INT_MAX && e.to >= 0) return true;
+        if (e.weight > 0 && e.weight < Number.MAX_SAFE_INTEGER && e.to >= 0) return true;
 		else return false;
     }
 
     firstE(v)
     {
-        et = new Edge(v);
-		let temp = gralist[v].head;
+        let et = new Edge(v); // from
+        //console.log(v);
+		let temp = this.gralist[v].head;
 
 		if (temp.next != null)
 		{
@@ -107,9 +96,10 @@ class GraphList{
 
     nextE(e)
 	{
-		et = new Edge(e.from);
-		let t = gralist[e.from].head;
-		while (t.next != null&&t.next.elem.v<=e.to)
+		let et = new Edge(e.from);
+        
+		let t = this.gralist[e.from].head;
+		while (t.next != null&&t.next.elem.vertex<=e.to)
 		{
 			t = t.next;
 		}
@@ -122,6 +112,7 @@ class GraphList{
 		{
 			//cout << "不存在下一条边" << endl;
 		}
+        //console.log(et);
 		return et;
 	}
 
@@ -174,13 +165,7 @@ class GraphList{
         }
     }
 }
-g = new GraphList(5,8);
-g.setE(0,1,1);
-g.setE(0,2,1);
-g.setE(0,3,1);
-g.setE(1,3,1);
-g.setE(2,0,1);g.setE(2,3,1);g.setE(2,4,1);
-g.setE(3,4,1);
 
-g.printGl();
+
+export default GraphList
 
