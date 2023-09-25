@@ -6,8 +6,9 @@ import Edge from './Edge.js'
 //import './Edge.js'
 
 class listUnit { // 数据域
-    constructor(v, w) {
+    constructor(v, w, d) {
         this.vertex = v;
+        this.data = d;
         this.weight = w;
     }
 }
@@ -34,25 +35,28 @@ class LList{ // 链表头指针类
 }
 
 class GraphList{
-    constructor(nV,nE)
+    constructor(nV)
     {
         if(nV!=undefined) this.numV = nV; else this.numV = 0;
-        if(nE!=undefined) this.numE = nE; else this.numE = 0;
+        //if(nE!=undefined) this.numE = nE; else this.numE = 0;
         this.Mark = new Array(nV);
         this.gralist = new Array(nV);
         this.Indegree = new Array(nV);
-        for(let i = 0;i<=nV;i++)
+    }
+    createVertex(courses)
+    {
+        for(let i = 1;i<=courses.length;i++)
         {
-            this.gralist[i] = new LList(new listUnit(i));
+            this.gralist[i] = new LList(new listUnit(i,1,courses[i]));
             this.Indegree[i] = 0;
             this.Mark[i] = 0;
         }
-
     }
+
     printGl()
     {
         let result = "";
-        for(let i = 0; i<this.numV;i++)
+        for(let i = 1; i<=this.numV;i++)
         {
             result +=`${i}`;
             let t = this.gralist[i].head;
@@ -137,13 +141,13 @@ class GraphList{
             {
                 let back = temp.next.next;
                 temp.next = new Link(new listUnit(t,w),back);
-                this.numE++;
+                //this.numE++;
                 this.Indegree[t]++;
             } 
         }else // insert last
         {
             temp.next = new Link(new listUnit(t,w),null);
-            this.numE++;
+            //this.numE++;
             this.Indegree[t]++;
         }
     }
@@ -160,7 +164,7 @@ class GraphList{
             let back = temp.next.next;
             delete temp.next;
             temp.next = back;
-            this.numE--;
+            //this.numE--;
             this.Indegree[t]--;
         }
     }
