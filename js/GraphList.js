@@ -60,7 +60,7 @@ class GraphList{
         {
             result +=`${i}`;
             let t = this.gralist[i].head;
-            console.log(`${i}入度:${this.Indegree[i]}`);
+            // console.log(`${i}入度:${this.Indegree[i]}`);
             //console.log(t);
             while(t.next!=null)
             {

@@ -1,0 +1,42 @@
+.item-psw,
+.item-user
+{
+    width: 305px;
+    height: 88px;
+}
+
+.item-psw .psw-msg-first,
+.item-psw .psw-msg-sec,
+.item-psw .psw-msg,
+.item-user .user-msg
+{
+    color: #ff4d4f;
+    font-size: 2px;
+    /* position: absolute;
+    left: 2px;
+    bottom: 2px; */
+    /* text-align: right !important; */
+    /* margin-bottom: 2px; */
+}
+
+.btn
+{
+    margin-top: 18px;
+    width: 305px;
+    height: 54px;
+}
+
+.disappear
+{
+    display: none;
+}
+
+.return-login
+{
+    font-size: 18px;
+    margin-top: 18px;
+    width: 305px;
+    height: 54px;
+    padding: 14px 15px;
+    font-weight: 700;
+}

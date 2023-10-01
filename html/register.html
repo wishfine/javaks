@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="lucky">
+
+<head>
+    <title>学习课程计划辅助编排系统-register-Lucky</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="学习课程计划辅助编排系统,选课,排课,lucky" />
+    <!-- //Meta tag Keywords -->
+    <link href="//fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!--/Style-CSS -->
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="../css/register.css" type="text/css" media="all" />
+    <!--//Style-CSS -->
+
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../iconfont/iconfont.css">
+</head>
+
+<body>
+
+    <!-- form section start -->
+    <section class="login-form">
+        <h1>学习课程计划辅助编排系统</h1>  
+        <div class="container">
+            <!-- /form -->
+            <div class="workinghny-form-grid">
+                <div class="main">
+                    <div class="content-wthree">
+                        <h2>Register</h2>
+                        <form action="#" method="post">
+                            <div class="item-user">
+                                <div class="item-box username">
+                                    <span class="iconfont icon-user"></span>
+                                    <input type="text" class="text" name="username-register" placeholder="Set User Name" required="" autofocus>
+                                </div>
+                                <span class="user-msg"></span>
+                            </div>
+                            <div class="item-psw">
+                                <div class = "item-box pswtext">
+                                    <span class="iconfont icon-tianchongxing-"></span>
+                                    <input type="password" class="password" name="password-register" placeholder="Set User Password" required="" autofocus>
+                                </div>
+                                <span class="psw-msg-first"></span>
+                            </div>
+
+                            <div class="item-psw">
+                                <div class = "item-box pswtext">
+                                    <span class="iconfont icon-tianchongxing-"></span>
+                                    <input type="password" class="password" name="password-register-again" placeholder="Input again" required="" autofocus>
+                                </div>
+                                <span class="psw-msg-sec"></span>
+                            </div>
+                            
+                            <button class="btn" type="submit">Register</button>
+                        </form>
+
+                        <p class="return-login disappear">Return to Login -> <a href="./login.html">Login</a></p>
+                        
+                    </div>
+                    <div class="w3l_form align-self">
+                        <div class="left_grid_info">
+                            <img src="../sources/images/1.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //form -->
+        </div>
+        <!-- copyright-->
+        <div class="copyright text-center">
+            <p class="copy-footer-29">© 2023 Lucky-Report Login Form. All rights reserved</p>
+        </div>
+        <!-- //copyright-->
+    </section>
+    <!-- //form section start -->
+</body>
+
+<script>
+    // const username = document.querySelector('input.text');
+    // username.value="lucky";
+    // console.log(username.value);
+    const pswfirst = document.querySelector('[name=password-register]');
+    // 检查password是否符合规范
+    pswfirst.addEventListener('input',verifyPsw);
+
+    let flagpsw1 = false;
+    let flagpsw2 = false;
+    function verifyPsw()
+    {
+        // 密码必须由字母、数字、特殊符号组成，区分大小写;
+        // 特殊符号包含（. _ ~ ! ）;
+        // 密码长度为6-16位
+        const reg = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[._~!])[A-Za-z0-9._~!@#$^&*]{6,16}$/;
+        
+        // const span = psw.nextElementSibling;
+        const span = document.querySelector('.psw-msg-first');
+        if(!reg.test(pswfirst.value))
+        {
+            span.innerText = "请输入6-16位由字母、数字、特殊符号[. _ ~ !]组成的密码";
+            flagpsw1 = false;
+        }
+        else
+        {
+            span.innerText = '';
+            flagpsw1 = true;
+        }
+
+        if(pswfirst.value === '')
+        {
+            span.innerText = '';
+            flagpsw1 = false;
+        }
+        
+    }
+    // 验证第二次密码是否与第一次一致
+    const pswsec = document.querySelector('[name=password-register-again]');
+    pswsec.addEventListener('input',confirmPsw);
+
+    function confirmPsw()
+    {
+
+        // const span = psw.nextElementSibling;
+        const span = document.querySelector('.psw-msg-sec');
+        if((pswfirst.value!=='')&&(pswfirst.value!==pswsec.value)&&flagpsw1)
+        {
+            span.innerText = "两次密码输入不一致";
+            flagpsw2 = false;
+        }
+        else
+        {
+            span.innerText = '';
+            flagpsw2 = true;
+        }
+        if(pswsec.value === '')
+        {
+            span.innerText = '';
+        }
+        
+    }
+    const uname = document.querySelector('[name=username-register]');
+
+    const form = document.querySelector('form');
+
+    const returnLogin = document.querySelector('.return-login');
+    const btn = document.querySelector('.btn');
+    form.addEventListener('submit',function(e)
+    {
+        e.preventDefault(); // 阻止提交
+        if(flagpsw2)
+        {
+            localStorage.setItem(uname.value,pswsec.value);
+            returnLogin.classList.remove('disappear');
+            btn.classList.add('disappear');
+        }
+    })
+
+</script>
+</html>
